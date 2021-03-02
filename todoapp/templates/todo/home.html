@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h1 class="text-center mb-3">This is to do page.</h1>
+	<div class="card mb-3">
+		
+			<div class="card-body">
+				{% if todos %}
+				{% for todo in todos %}
+				<ul class="list-group">
+					<li class="list-group-item mb-3">{{ todo.content }} 
+						<a href="{% url 'delete' todo.id %}" class="float-right">
+							x
+						</a>
+					</li>
+				</ul>
+				{%	endfor %}
+				{% else %}
+				<h5 class="text-center">There are no todos. Add few todos.</h5>
+				{% endif %}
+			</div>
+		
+
+	</div>
+	<form action="{% url 'add-todo' %}" method="post">
+		{% csrf_token %}
+		<div class="form-group mt-4">
+			<input type="text" name="content"/>
+			<input type="submit" value="Add" />
+		</div>
+			
+	</form>
+{% endblock content %}
